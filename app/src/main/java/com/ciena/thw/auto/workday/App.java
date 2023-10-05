@@ -3,9 +3,16 @@
  */
 package com.ciena.thw.auto.workday;
 
+import java.util.Date;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
+    }
+
+    public Date getWorkday(final Date startingDate, final int numberOfWOrkdays) {
+        // TODO: implement this method
+        return null;
     }
 
     public static void main(String[] args) {
