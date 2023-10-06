@@ -4,6 +4,15 @@ This take-home assignment evaluates your knowledge and/or resourcefulness
 with a simple programming exercise in Java, using JUnit as the test framework,
 Gradle as the build system, and Git as the version control system.
 
+## Requirements
+
+You will need to download the following software on your computer:
+
+1. OpenJDK 17 or later. You can download it for free from https://adoptium.net/temurin/archive/?version=17
+2. Gradle 8.1.1 or later.  You can download it for free from https://gradle.org/releases/
+
+Set the `JAVA_HOME` environment variable to point to the directory where the JDK was installed
+and then add Gradle's `bin` directory to your `PATH` environment variable.
 
 ## The exercise
 
