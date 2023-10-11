@@ -35,10 +35,9 @@ Su Mo Tu We Th Fr Sa
 
 ## Directions
 
-Throughout these steps, make small, focused commits along the way to show your work.
-
-1. Create a feature branch whose name includes your name.
-2. Upgrade JUnit to version 5.
+1. Create a branch whose name includes your name.  **Make small, focused commits** in this branch to show your work.
+2. Upgrade JUnit to version 5.  Make sure all tests still run and pass.
 3. Remove the unused `guava` dependency.
-4. Implement the `App#getWorkday(Date, int)` method, with unit tests.  Bonus points for TDD.
+4. Implement the `App#getWorkday(Date, int)` method, with unit tests.
+    1. Bonus points for TDD, creating a separate commit for each new test AND its corresponding change in implementation.
 5. Remove untracked & ignored files, then create a ZIP archive of the directory and e-mail it back to your contact.
