@@ -4,11 +4,22 @@
 package com.ciena.thw.auto.workday;
 
 import org.junit.Test;
+import java.time.LocalDate;
 import static org.junit.Assert.*;
-
+import com.ciena.thw.auto.workday.App;
 public class AppTest {
     @Test public void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    }
+
+    @Test
+    public void testCalculateWorkDay() {
+        LocalDate startDate = LocalDate.of(2023, 10, 5);
+        int workDays = 2;
+        LocalDate expectedDate = LocalDate.of(2023, 10, 9);
+
+        LocalDate resultDate = App.getWorkDay(startDate, workDays);
+        assertEquals(expectedDate, resultDate);
     }
 }

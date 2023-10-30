@@ -36,6 +36,10 @@ application {
     mainClass = 'com.ciena.thw.auto.workday.App'
 }
 
+tasks.test {
+    useJUnit()
+}
+
 tasks.named('run', JavaExec) {
     standardInput = System.in
 }
