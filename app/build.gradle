@@ -18,10 +18,16 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation 'junit:junit:4.13.2'
+    //testImplementation 'junit:junit:4.13.2'
 
     // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.1-jre'
+    //implementation 'com.google.guava:guava:31.1-jre'
+
+    //enabling JUnit5 dependencies
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+
+    //This API supports writing and running tests using the JUnit Jupiter testing framework.
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -37,9 +43,14 @@ application {
 }
 
 tasks.test {
-    useJUnit()
+    //This configuration sets up the testing task to use JUnit 4
+    //useJUnit()
+
+    //This configuration sets up the testing task to use JUnit 5
+    useJUnitPlatform()
 }
 
 tasks.named('run', JavaExec) {
+    //This configuration allows users to input data
     standardInput = System.in
 }

@@ -3,17 +3,14 @@
  */
 package com.ciena.thw.auto.workday;
 
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
-import static org.junit.Assert.*;
-import com.ciena.thw.auto.workday.App;
-import org.junit.rules.ExpectedException;
 import java.time.format.DateTimeParseException;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 public class AppTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
     @Test public void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
@@ -51,13 +48,12 @@ public class AppTest {
 
     @Test
     public void testGetWorkDay_WithNegativeWorkDays() {
-        thrown.expect(DateTimeParseException.class);
-        thrown.expectMessage("Number of work days cannot be negative.");
+        LocalDate startDate = LocalDate.of(2023, 10, 5); // October 5th, 2023
+        int workDays = -2; // Negative workdays
+        Throwable exception = assertThrows(DateTimeParseException.class, () -> App.getWorkDay(startDate, workDays));
 
-        LocalDate startDate = LocalDate.of(2023, 10, 5);
-        int workDays = -2;
-
-        App.getWorkDay(startDate, workDays);
+        String expectedMessage = "Number of work days cannot be negative.";
+        assertEquals(expectedMessage, exception.getMessage());
     }
 
     @Test
