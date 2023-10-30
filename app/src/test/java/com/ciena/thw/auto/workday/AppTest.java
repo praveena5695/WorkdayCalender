@@ -22,4 +22,24 @@ public class AppTest {
         LocalDate resultDate = App.getWorkDay(startDate, workDays);
         assertEquals(expectedDate, resultDate);
     }
+
+    @Test
+    public void testCalculateWorkDay_ZeroWorkDays() {
+        LocalDate startDate = LocalDate.of(2023, 10, 5);
+        int workDays = 0;
+        LocalDate expectedDate = startDate;
+
+        LocalDate resultDate = App.getWorkDay(startDate, workDays);
+        assertEquals(expectedDate, resultDate);
+    }
+
+    @Test
+    public void testCalculateWorkDay_WeekendSkip() {
+        LocalDate startDate = LocalDate.of(2023, 10, 5);
+        int workDays = 3;
+        LocalDate expectedDate = LocalDate.of(2023, 10, 10);
+
+        LocalDate resultDate = App.getWorkDay(startDate, workDays);
+        assertEquals(expectedDate, resultDate);
+    }
 }
