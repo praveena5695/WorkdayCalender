@@ -3,19 +3,84 @@
  */
 package com.ciena.thw.auto.workday;
 
-import java.util.Date;
+import java.util.*;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public Date getWorkday(final Date startingDate, final int numberOfWOrkdays) {
-        // TODO: implement this method
-        return null;
+    public static LocalDate getWorkDay(LocalDate startingDate, int numberOfWOrkdays) throws DateTimeParseException{
+        if (numberOfWOrkdays < 0) {
+            throw new DateTimeParseException("Number of work days cannot be negative.", "", 0);
+        }
+        LocalDate date = startingDate;
+        int remainingWorkDays = Math.abs(numberOfWOrkdays);
+
+        while (remainingWorkDays > 0) {
+            date = date.plusDays(1);
+            if (!(date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY)) {
+                remainingWorkDays--;
+            }
+        }
+
+        return date;
+    }
+
+    public static LocalDate validateDate(String date) throws DateTimeParseException {
+        return LocalDate.parse(date);
     }
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        Scanner scanner = new Scanner(System.in);
+
+        LocalDate startingDate = null;
+        boolean validDateEntered = false;
+
+        while (!validDateEntered) {
+            try {
+                System.out.println("Enter the start date (YYYY-MM-DD): ");
+                String inputDate = scanner.next();
+                startingDate = validateDate(inputDate);
+
+                validDateEntered = true;
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid date format. Please use the format YYYY-MM-DD.");
+            }
+        }
+
+        int numberOfWOrkdays = -1;
+
+        while (numberOfWOrkdays < 0) {
+            try {
+                System.out.println("Enter the number of work days (n): ");
+                if (scanner.hasNextInt()) {
+                    numberOfWOrkdays = scanner.nextInt();
+                    if (numberOfWOrkdays < 0) {
+                        System.out.println("Number of work days cannot be negative.");
+                    }
+                } else {
+                    System.out.println("Invalid input for work days. Please enter a valid non-negative integer.");
+                    scanner.next(); // Clear the input buffer
+                }
+            } catch (NoSuchElementException e) {
+                System.out.println("No input available.");
+                break;
+            }
+        }
+
+        if (numberOfWOrkdays >= 0) {
+            LocalDate resultDate = getWorkDay(startingDate, numberOfWOrkdays);
+
+            System.out.println("Start Date: " + startingDate);
+            System.out.println("Number of Work Days: " + numberOfWOrkdays);
+            System.out.println("Result Date: " + resultDate);
+        }
+
+        scanner.close();
     }
 }

@@ -35,3 +35,7 @@ application {
     // Define the main class for the application.
     mainClass = 'com.ciena.thw.auto.workday.App'
 }
+
+tasks.named('run', JavaExec) {
+    standardInput = System.in
+}
