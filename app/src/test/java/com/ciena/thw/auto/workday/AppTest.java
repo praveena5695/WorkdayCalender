@@ -3,11 +3,17 @@
  */
 package com.ciena.thw.auto.workday;
 
+import org.junit.Rule;
 import org.junit.Test;
 import java.time.LocalDate;
 import static org.junit.Assert.*;
 import com.ciena.thw.auto.workday.App;
+import org.junit.rules.ExpectedException;
+import java.time.format.DateTimeParseException;
 public class AppTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
     @Test public void appHasAGreeting() {
         App classUnderTest = new App();
         assertNotNull("app should have a greeting", classUnderTest.getGreeting());
@@ -38,6 +44,46 @@ public class AppTest {
         LocalDate startDate = LocalDate.of(2023, 10, 5);
         int workDays = 3;
         LocalDate expectedDate = LocalDate.of(2023, 10, 10);
+
+        LocalDate resultDate = App.getWorkDay(startDate, workDays);
+        assertEquals(expectedDate, resultDate);
+    }
+
+    @Test
+    public void testGetWorkDay_WithNegativeWorkDays() {
+        thrown.expect(DateTimeParseException.class);
+        thrown.expectMessage("Number of work days cannot be negative.");
+
+        LocalDate startDate = LocalDate.of(2023, 10, 5);
+        int workDays = -2;
+
+        App.getWorkDay(startDate, workDays);
+    }
+
+    @Test
+    public void testCalculateWorkDay_MaximumWorkDays() {
+        LocalDate startDate = LocalDate.of(2023, 10, 5);
+        int workDays = 1000;
+        LocalDate resultDate = App.getWorkDay(startDate, workDays);
+
+        assertEquals(true, resultDate.isAfter(startDate));
+    }
+
+    @Test
+    public void testCalculateWorkDay_StartsOnWeekend() {
+        LocalDate startDate = LocalDate.of(2023, 10, 7); // Saturday
+        int workDays = 3;
+        LocalDate expectedDate = LocalDate.of(2023, 10, 11);
+
+        LocalDate resultDate = App.getWorkDay(startDate, workDays);
+        assertEquals(expectedDate, resultDate);
+    }
+
+    @Test
+    public void testCalculateWorkDay_OneDay() {
+        LocalDate startDate = LocalDate.of(2023, 10, 5);
+        int workDays = 1;
+        LocalDate expectedDate = LocalDate.of(2023, 10, 6);
 
         LocalDate resultDate = App.getWorkDay(startDate, workDays);
         assertEquals(expectedDate, resultDate);
